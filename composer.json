@@ -1,0 +1,25 @@
+{
+    "name": "karlnack/packmule",
+    "description": "Module- and package-based autoloading for PHP",
+    "license": "ISC",
+    "homepage": "https://github.com/karlnack/packmule",
+    "support": {
+        "source": "https://github.com/karlnack/packmule",
+        "issues": "https://github.com/karlnack/packmule/issues"
+    },
+    "autoload": {
+        "psr-4": {"karlnack\\packmule\\": "src/"},
+        "files": ["autoload.php"]
+    },
+    "require": {
+        "php": ">= 5.4"
+    },
+    "require-dev": {
+        "easytest/easytest": "0.*"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    }
+}
