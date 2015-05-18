@@ -1,0 +1,11 @@
+1.0.0 (2015-05-18)
+==================
+
+Initial release.
+
+Added
+-----
+* Implement module- and package-based autoloading of PHP source files by using
+  PHP namespaces.
+* Support PHP 5.4 or later.
+* Install via Composer.

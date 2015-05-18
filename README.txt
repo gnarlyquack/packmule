@@ -73,7 +73,7 @@ Use Composer to install Pack Mule by adding the following configuration to
 your project's "composer.json":
 
     "require": {
-        "karlnack/packmule": "*"
+        "karlnack/packmule": "1.0.*"
     }
 
 
