@@ -1,3 +1,14 @@
+Unreleased
+==========
+
+Changed
+-------
+* Updated the documentation to more precisely describe how namespace names
+  are mapped to file names.
+
+
+
+
 1.0.0 (2015-05-18)
 ==================
 
