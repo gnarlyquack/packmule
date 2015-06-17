@@ -58,7 +58,7 @@ final class Implementation {
     private $cache = [];
 
     public function add($namespace, $path) {
-        if (!$namespace = trim($namespace, '\\')) {
+        if (!$namespace = strtolower(trim($namespace, '\\'))) {
             throw new \Exception(
                 Autoloader::CLASSNAME
                 . ': Adding paths for the global namespace is not supported'
@@ -79,7 +79,7 @@ final class Implementation {
     }
 
     public function load($name) {
-        $name = substr($name, 0, strrpos($name, '\\'));
+        $name = strtolower(substr($name, 0, strrpos($name, '\\')));
         if (!$name || isset($this->cache[$name])) {
             return;
         }

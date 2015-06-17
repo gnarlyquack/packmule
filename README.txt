@@ -31,8 +31,11 @@ used to identify a module (or package) as follows:
    rightmost name constitutes the "vendor prefix". The vendor prefix is
    excluded when mapping a namespace to a file path in the base directory.
 
-4. The case of a namespace should match the case of the corresponding file
-   path, and the file name identified by the namespace must end in ".php".
+4. File path names that correspond to a namespace name MUST be lowercase, and
+   the file name identified by the namespace must end in ".php". This is
+   because identifiers are case insensitive in PHP and clients may specify a
+   namespace in whatever case they like. Consequently, Pack Mule standardizes
+   all names to lowercase.
 
 The following examples show how Pack Mule resolves fully-qualified class
 names to a file name (which presumably contains the class definition).
@@ -47,13 +50,13 @@ Resulting File Path: /path/to/foo/src/foo.php
   Project Namespace: Fee\Fie
       Vendor Prefix: Fee
      Base Directory: /path/to/fie
-Resulting File Path: /path/to/fie/Fie.php
+Resulting File Path: /path/to/fie/fie.php
 
          Class Name: \Acme\Logger\File\Writer
   Project Namespace: Acme\Logger
       Vendor Prefix: Acme
      Base Directory: ./acme/logger/lib
-Resulting File Path: ./acme/logger/lib/Logger/File.php
+Resulting File Path: ./acme/logger/lib/logger/file.php
 
          Class Name: \com\example\web\response\Status
   Project Namespace: com\example\web

@@ -20,11 +20,10 @@ class TestImplementation {
 
         $this->loader->add('package', "$path/package");
         $this->loader->add('vendor\\package', "$path/vendor");
-
         $this->loader->add('package\\subnamespace', "$path/subnamespace");
-
         $this->loader->add('vendor\\foo', "$path/foo");
         $this->loader->add('vendor\\foobar', "$path/foobar");
+        $this->loader->add('INSENSITIVE\\PACKAGE', "$path/case-sensitivity");
 
         $this->loader->register();
     }
@@ -98,5 +97,9 @@ class TestImplementation {
             'karlnack\\packmule\\Autoloader: Adding paths for the global namespace is not supported',
             $e->getMessage()
         );
+    }
+
+    public function test_autoloading_is_case_insensitive() {
+        $this->assert_loaded('Insensitive\\Package\\Module\\Foo');
     }
 }
