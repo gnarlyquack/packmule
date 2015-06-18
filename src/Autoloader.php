@@ -24,45 +24,47 @@ const VERSION = '1.0.0';
  */
 
 final class Autoloader {
-    /* Workaround for lack of class name resolution (::class) in PHP < 5.5. */
-    const CLASSNAME = __CLASS__;
-
     private static $instance;
 
     /* Prevent instantation of this class. */
     private function __construct() {}
 
     public static function add($namespace, $path) {
-        static::instance()->add($namespace, $path);
+        self::instance()->add($namespace, $path);
     }
 
     public static function register($prepend = true) {
-        static::instance()->register($prepend);
+        self::instance()->register($prepend);
     }
 
     public static function unregister() {
-        if (static::$instance) {
-            static::$instance->unregister();
+        if (self::$instance) {
+            self::$instance->unregister();
         }
     }
 
     private static function instance() {
-        return static::$instance ?: static::$instance = new Implementation();
+        return self::$instance
+            ?: self::$instance = new Implementation(__CLASS__);
     }
 }
 
 
 final class Implementation {
+    private $proxy = __CLASS__;
     private $namespaces = [];
     private $search;
     private $cache = [];
 
+    public function __construct($proxy = null) {
+        if ($proxy) {
+            $this->proxy = $proxy;
+        }
+    }
+
     public function add($namespace, $path) {
         if (!$namespace = strtolower(trim($namespace, '\\'))) {
-            throw new \Exception(
-                Autoloader::CLASSNAME
-                . ': Adding paths for the global namespace is not supported'
-            );
+            throw new \Exception("$this->proxy: Adding paths for the global namespace is not supported");
         }
         $this->namespaces[$namespace]
             = rtrim($path, DIRECTORY_SEPARATOR)

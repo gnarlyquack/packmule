@@ -94,7 +94,7 @@ class TestImplementation {
         );
 
         easytest\assert_identical(
-            'karlnack\\packmule\\Autoloader: Adding paths for the global namespace is not supported',
+            'karlnack\\packmule\\Implementation: Adding paths for the global namespace is not supported',
             $e->getMessage()
         );
     }
