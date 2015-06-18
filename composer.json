@@ -1,6 +1,7 @@
 {
     "name": "karlnack/packmule",
     "description": "Module- and package-based autoloading for PHP",
+    "keywords": ["autoloader"],
     "license": "ISC",
     "homepage": "https://github.com/karlnack/packmule",
     "support": {
