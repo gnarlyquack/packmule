@@ -5,6 +5,7 @@ Changed
 -------
 * Updated the documentation to more precisely describe how namespace names
   are mapped to file names.
+* Minor performance improvements.
 
 Fixed
 -----

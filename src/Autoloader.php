@@ -68,14 +68,7 @@ final class Implementation {
             = rtrim($path, DIRECTORY_SEPARATOR)
             . DIRECTORY_SEPARATOR
             . basename(str_replace('\\', DIRECTORY_SEPARATOR, $namespace));
-
-        $namespaces = array_keys($this->namespaces);
-        /* Ensure more specific namespaces are matched first. */
-        rsort($namespaces);
-        $this->search = sprintf(
-            '~^(%s)(?:\\\\|$)~',
-            implode('|', array_map([$this, 'quote_namespace'], $namespaces))
-        );
+        $this->search = null;
     }
 
     public function load($name) {
@@ -84,6 +77,16 @@ final class Implementation {
             return;
         }
         $this->cache[$name] = true;
+
+        if (!$this->search) {
+            $namespaces = array_keys($this->namespaces);
+            /* Ensure more specific namespaces are matched first. */
+            rsort($namespaces);
+            $this->search = sprintf(
+                '~^(%s)(?:\\\\|$)~',
+                implode('|', array_map([$this, 'quote_namespace'], $namespaces))
+            );
+        }
 
         if (!preg_match($this->search, $name, $match)) {
             return;
