@@ -78,7 +78,7 @@ perhaps inadvisable, and future support of this is not guaranteed.
 Requirements
 ============
 
-Pack Mule requires PHP 5.4 or later.
+Pack Mule supports PHP 5.3 through 7.4.
 
 
 Installation

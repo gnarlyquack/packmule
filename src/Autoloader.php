@@ -11,7 +11,7 @@
 
 namespace karlnack\packmule;
 
-const VERSION = '1.0.1';
+const VERSION = '1.0.2';
 
 /*
  * The autoloader is split into two components: a "private" implementation
