@@ -3,10 +3,10 @@
     "description": "Module- and package-based autoloading for PHP",
     "keywords": ["autoloader"],
     "license": "ISC",
-    "homepage": "https://github.com/karlnack/packmule",
+    "homepage": "https://github.com/gnarlyquack/packmule",
     "support": {
-        "source": "https://github.com/karlnack/packmule",
-        "issues": "https://github.com/karlnack/packmule/issues"
+        "source": "https://github.com/gnarlyquack/packmule",
+        "issues": "https://github.com/gnarlyquack/packmule/issues"
     },
     "autoload": {
         "psr-4": {"karlnack\\packmule\\": "src/"},
