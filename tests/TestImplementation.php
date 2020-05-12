@@ -35,12 +35,21 @@ class TestImplementation {
     /* helper assertions */
 
     private function assert_loaded($class) {
-        assert('!class_exists($class, false)');
-        assert('class_exists($class)');
+        easytest\assert_false(
+            class_exists($class, false),
+            "Unloaded class $class exists?"
+        );
+        easytest\assert_true(
+            class_exists($class),
+            "$class was not autoloaded"
+        );
     }
 
     private function assert_not_loaded($class) {
-        assert('!class_exists($class)');
+        easytest\assert_false(
+            class_exists($class, false),
+            "Unloaded class $class exists?"
+        );
     }
 
     /* tests */
@@ -88,7 +97,7 @@ class TestImplementation {
     }
 
     public function test_registering_global_namespace() {
-        $e = easytest\assert_exception(
+        $e = easytest\assert_throws(
             'Exception',
             function() { $this->loader->add('', __DIR__); }
         );

@@ -23,7 +23,7 @@ class TestAutoloader {
     public function test_autoload() {
         Autoloader::add('apitest', __DIR__ . '/packages/apitest');
         $class = 'apitest\\Foo';
-        assert('!class_exists($class, false)');
-        assert('class_exists($class)');
+        easytest\assert_false(class_exists($class, false), 'Unloaded class exists?');
+        easytest\assert_true(class_exists($class), "$class was not autoloaded");
     }
 }
