@@ -97,9 +97,11 @@ class TestImplementation {
     }
 
     public function test_registering_global_namespace() {
+        // #BC(5.3): Pass $loader into scope of anonymous function
+        $loader = $this->loader;
         $e = easytest\assert_throws(
             'Exception',
-            function() { $this->loader->add('', __DIR__); }
+            function() use ($loader) { $loader->add('', __DIR__); }
         );
 
         easytest\assert_identical(

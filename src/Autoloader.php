@@ -52,9 +52,9 @@ final class Autoloader {
 
 final class Implementation {
     private $proxy = __CLASS__;
-    private $namespaces = [];
+    private $namespaces = array();
     private $search;
-    private $cache = [];
+    private $cache = array();
 
     public function __construct($proxy = null) {
         if ($proxy) {
@@ -63,42 +63,42 @@ final class Implementation {
     }
 
     public function add($namespace, $path) {
-        if (!$namespace = strtolower(trim($namespace, '\\'))) {
+        if (!$namespace = \strtolower(\trim($namespace, '\\'))) {
             throw new \Exception("$this->proxy: Adding paths for the global namespace is not supported");
         }
         $this->namespaces[$namespace]
-            = rtrim($path, DIRECTORY_SEPARATOR)
-            . DIRECTORY_SEPARATOR
-            . basename(str_replace('\\', DIRECTORY_SEPARATOR, $namespace));
+            = \rtrim($path, \DIRECTORY_SEPARATOR)
+            . \DIRECTORY_SEPARATOR
+            . \basename(\str_replace('\\', \DIRECTORY_SEPARATOR, $namespace));
         $this->search = null;
     }
 
     public function load($name) {
-        $name = strtolower(substr($name, 0, strrpos($name, '\\')));
+        $name = \strtolower(\substr($name, 0, \strrpos($name, '\\')));
         if (!$name || isset($this->cache[$name])) {
             return;
         }
         $this->cache[$name] = true;
 
         if (!$this->search) {
-            $namespaces = array_keys($this->namespaces);
+            $namespaces = \array_keys($this->namespaces);
             /* Ensure more specific namespaces are matched first. */
-            rsort($namespaces);
-            $this->search = sprintf(
+            \rsort($namespaces);
+            $this->search = \sprintf(
                 '~^(%s)(?:\\\\|$)~',
-                implode('|', array_map([$this, 'quote_namespace'], $namespaces))
+                \implode('|', \array_map(array($this, 'quote_namespace'), $namespaces))
             );
         }
 
-        if (!preg_match($this->search, $name, $match)) {
+        if (!\preg_match($this->search, $name, $match)) {
             return;
         }
         $namespace = $match[1];
         $path = $this->namespaces[$namespace];
 
         if ($namespace !== $name) {
-            $name = substr($name, strlen($namespace));
-            $path .= str_replace('\\', DIRECTORY_SEPARATOR, $name);
+            $name = \substr($name, \strlen($namespace));
+            $path .= \str_replace('\\', \DIRECTORY_SEPARATOR, $name);
         }
         $path .= '.php';
 
@@ -107,29 +107,29 @@ final class Implementation {
          * including the file using error suppression, which will also quash
          * error messages if the file exists and has errors of its own.
          */
-        if (is_file($path)) {
-            include_file($path);
+        if (\is_file($path)) {
+            namespace\include_file($path);
         }
     }
 
     public function register($prepend = true) {
         /*
-         * spl_autoload_register() already guards against multiple
+         * \spl_autoload_register() already guards against multiple
          * registrations of the same callback.
          */
-        spl_autoload_register([$this, 'load'], true, $prepend);
+        \spl_autoload_register(array($this, 'load'), true, $prepend);
     }
 
     public function unregister() {
         /*
-         * spl_autoload_unregister() already handles unregistering a callback
+         * \spl_autoload_unregister() already handles unregistering a callback
          * that wasn't previously registered.
          */
-        spl_autoload_unregister([$this, 'load']);
+        \spl_autoload_unregister(array($this, 'load'));
     }
 
     private function quote_namespace($namespace) {
-        return preg_quote($namespace, '~');
+        return \preg_quote($namespace, '~');
     }
 }
 
